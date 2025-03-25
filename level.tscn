@@ -14,3 +14,5 @@ script = ExtResource("1_vonw3")
 
 [node name="Player" parent="." instance=ExtResource("1_u52ul")]
 position = Vector2(88, 48)
+floor_constant_speed = true
+floor_snap_length = 8.0

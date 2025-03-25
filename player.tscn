@@ -1,11 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dtl76vmfddkvc"]
+[gd_scene load_steps=3 format=3 uid="uid://dtl76vmfddkvc"]
 
 [ext_resource type="Texture2D" uid="uid://diroepcfufccw" path="res://assets/textures/penquin.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://cqic08sohp8l4" path="res://player.gd" id="1_onrkg"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4flbx"]
-radius = 4.0
-height = 16.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_onrkg")
@@ -19,9 +15,8 @@ offset = Vector2(0, -8)
 hframes = 2
 frame = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -8)
-shape = SubResource("CapsuleShape2D_4flbx")
-
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(64, 16)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-7, 0, -7, -6, -4, -9, 8, -9, 8, -6)
