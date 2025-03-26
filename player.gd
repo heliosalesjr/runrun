@@ -9,8 +9,10 @@ extends CharacterBody2D
 @export var jump_force: float = 280.0
 @export var unjump_force: float = 25.0
 @export var landing_acceleration: float = 2250
+@export var air_jump_speed_reduction: = 1500
 
 var target_tilt: = 0.0
+var air_jump: = true
 
 @onready var anchor: Node2D = $Anchor
 
@@ -19,6 +21,7 @@ var target_tilt: = 0.0
 func _physics_process(delta: float) -> void:
 	
 	if is_on_floor():
+		air_jump = true
 		target_tilt = 0.0
 		
 		if velocity.x <= max_speed:
@@ -34,10 +37,14 @@ func _physics_process(delta: float) -> void:
 	
 	else:
 		target_tilt = clamp(velocity.y / 4, -30, 30)
-		
-		
+
 		velocity.x = move_toward(velocity.x, 0, air_friction * delta)	
 
+		if Input.is_action_just_pressed("ui_up") and air_jump:
+			velocity.y = -jump_force
+			velocity.x -= air_jump_speed_reduction * delta
+			air_jump = false
+			
 		if Input.is_action_just_released("ui_up"):
 			velocity.y = unjump_force		
 		if velocity.y > 0:
