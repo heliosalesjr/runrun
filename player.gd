@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var air_friction: float = 50.0
 @export var up_gravity: float = 250.0
 @export var down_gravity: float = 500.0
-@export var jump_force: float = 280.0
+@export var jump_force: float = 150.0
 @export var unjump_force: float = 25.0
 @export var landing_acceleration: float = 2250
 @export var air_jump_speed_reduction: = 1500
@@ -44,6 +44,8 @@ func _physics_process(delta: float) -> void:
 			velocity.y = -jump_force
 			velocity.x -= air_jump_speed_reduction * delta
 			air_jump = false
+			var tween = create_tween()
+			tween.tween_property(sprite_2d, "rotation_degrees", 0, 0.4).from(360 + sprite_2d.rotation_degrees)
 			
 		if Input.is_action_just_released("ui_up"):
 			velocity.y = unjump_force		
