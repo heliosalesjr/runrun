@@ -10,17 +10,20 @@ extends CharacterBody2D
 @export var unjump_force: float = 25.0
 @export var landing_acceleration: float = 2250
 @export var air_jump_speed_reduction: = 1500
+@export var coyote_time_amount = 0.15
 
 var target_tilt: = 0.0
 var air_jump: = true
+var coyote_time: = 0.0
 
 @onready var anchor: Node2D = $Anchor
 
 @onready var sprite_2d: Sprite2D = $Anchor/Sprite2D
 
 func _physics_process(delta: float) -> void:
+	coyote_time += delta
 	
-	if is_on_floor():
+	if is_on_floor() or coyote_time <= coyote_time_amount:
 		air_jump = true
 		target_tilt = 0.0
 		
@@ -56,8 +59,15 @@ func _physics_process(delta: float) -> void:
 	
 	var previous_velocity = velocity
 	
+	var was_on_floor = is_on_floor()
+	
 	move_and_slide()
 	
+	var just_left_ledge = was_on_floor and not is_on_floor() and velocity.y >= 0
+	
+	if just_left_ledge:
+		coyote_time = 0
+		
 	if velocity.y == 0 and previous_velocity.y > 5:
 		anchor.scale = Vector2(1.2, 0.8)
 		velocity.x += landing_acceleration * delta
