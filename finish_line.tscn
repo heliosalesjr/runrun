@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://sb8kwobooxdo"]
+
+[ext_resource type="Texture2D" uid="uid://dwr0tgxgev0jg" path="res://assets/textures/finish.png" id="1_6tsjx"]
+[ext_resource type="Script" uid="uid://b0p40wy8otcnx" path="res://finish_line.gd" id="2_yfpjd"]
+
+[node name="FinishLine" type="TextureRect"]
+offset_right = 469.0
+offset_bottom = 352.0
+texture = ExtResource("1_6tsjx")
+stretch_mode = 1
+script = ExtResource("2_yfpjd")
